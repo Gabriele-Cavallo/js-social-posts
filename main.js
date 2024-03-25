@@ -66,6 +66,9 @@ const posts = [
 // Stampo in pagina tutti i post presenti nell'array di oggetti
     // Creo l'elemento del DOM che andrò a popolare
     const domPosts = document.querySelector('#container');
+    // Destrutturo gli oggetti per poter utilizzare le variabili nel ciclo forEach
+    let {id , content, media, author, likes, created} = posts;
+    console.log('posts' , posts);
     // Per ogni oggetto riempio il DOM con il template HTML
     posts.forEach((singlePost) => {
         let newPost =`
