@@ -55,9 +55,6 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
-// BONUS
-
-// 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
 
 // Ricreiamo un feed social aggiungendo al layout di base fornito, il nostro script JS in cui:
 
@@ -76,14 +73,17 @@ posts.forEach((singlePost) => {
 // Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
 
     // Creo tutti gli elementi del DOM a cui associare l'evento click
+    // const likeButton = document.querySelectorAll('.like-button');
+    // likeButton.forEach((button) => {
+    //         // metto in ascolto l'elemento del DOM con un ciclo forEach
+    //         button.addEventListener('click', function(){
+    //             // aggiungo la classe css che modifica il colore del testo del botton
+    //             button.classList.add('like-button--liked');
+    //         })
+    //     });
     const likeButton = document.querySelectorAll('.like-button');
-    likeButton.forEach((button) => {
-            // metto in ascolto l'elemento del DOM con un ciclo forEach
-            button.addEventListener('click', function(){
-                // aggiungo la classe css che modifica il colore del testo del botton
-                button.classList.add('like-button--liked');
-            })
-        });
+    let notLike = false;
+    counterLikeButton(likeButton, notLike);
     
 // FUNCTIONS
 
@@ -161,4 +161,24 @@ function picImage (image, splitName){
 
     }
     return authorImage;
+};
+
+// 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
+// funzione per cambiare colore del bottone e counter like al click
+// like---> tutti gli elementi da ciclare a cui associare l'eventListener
+// dislike---> valore iniziale della variabile che comanda il cambio colore
+function counterLikeButton (like, dislike){
+    // metto in ascolto l'elemento del DOM con un ciclo forEach
+    like.forEach((button) => {
+        button.addEventListener('click', function(){
+            if (dislike === false){
+                    // aggiungo la classe css che modifica il colore del testo del botton
+                    button.classList.add('like-button--liked');
+                    dislike = true;
+                }else if(dislike === true){
+                    button.classList.remove('like-button--liked');
+                    dislike = false;
+                }
+            });
+        })
 };
