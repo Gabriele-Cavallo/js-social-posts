@@ -57,8 +57,6 @@ const posts = [
 ];
 // BONUS
 
-// 2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF).
-
 // 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
 
 // Ricreiamo un feed social aggiungendo al layout di base fornito, il nostro script JS in cui:
@@ -101,13 +99,14 @@ function singleTemplate (createNewPost){
     let splitDate = created.split('-');
     // riordino gli elementi per creare la sintassi di data italiana e utilizzo quella variabile per popolare dinamicamente il DOM
     italianDate = splitDate[2] + '/' + splitDate[1] + '/' + splitDate[0];
+    // 2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF).
     // creo il template del DOM da creare ad ogni ciclo
     let newPost =`
     <div class="post">
         <div class="post__header">
             <div class="post-meta">                    
                 <div class="post-meta__icon">
-                    <img class="profile-pic" src="${author.image}" alt="Phil Mangione">                    
+                ${picImage(author.image, author.name)}
                 </div>
                 <div class="post-meta__data">
                     <div class="post-meta__author">${author.name}</div>
@@ -136,3 +135,30 @@ function singleTemplate (createNewPost){
     `;
     return newPost;
 }
+
+
+// funzione per popolare la pic image con l'immagine o un test alternativo 
+// image ---> valore dell'immagine da stampare tramite la funzione
+// authorImage ---> stampa HTML dell'immagine o del valore sostitutivo
+// return---> immagine/testo che popola il DOM
+function picImage (image, splitName){
+    // divido il nome completo in firstName e lastName
+    let splitNameArray = splitName.split(' ');
+    let firstName = splitNameArray[0];
+    let lastName = splitNameArray[1];
+    // creo le variabili che contengono la prima lettera di firstName e di lastName per popolare dinamicamente il DOM
+    let firstNameLetter = firstName[0];
+    let firstLastNameLetter = lastName[0];
+    let authorImage;
+    if(image){
+        authorImage = `<img class="profile-pic" src="${image}" alt="Phil Mangione">`; 
+    }else{
+        // popolo dinamicamente lo span con le variabili ricavate prima
+        authorImage = `
+        <div class="profile-pic profile-pic-default">
+        <span>${firstNameLetter}${firstLastNameLetter}</span>
+        </div>`; 
+
+    }
+    return authorImage;
+};
