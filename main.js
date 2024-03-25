@@ -75,9 +75,11 @@ posts.forEach((singlePost) => {
 
     // Creo tutti gli elementi del DOM a cui associare l'evento click
     const likeButton = document.querySelectorAll('.like-button');
-        // metto in ascolto l'elemento del DOM con un ciclo forEach
-        likeButton.forEach((button) => {
+    likeButton.forEach((button) => {
+            // metto in ascolto l'elemento del DOM con un ciclo forEach
             button.addEventListener('click', function(){
+                // aggiungo la classe css che modifica il colore del testo del botton
+                button.classList.add('like-button--liked');
             })
         });
     
