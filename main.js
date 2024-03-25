@@ -66,26 +66,37 @@ const posts = [
 // Stampo in pagina tutti i post presenti nell'array di oggetti
     // Creo l'elemento del DOM che andrò a popolare
     const domPosts = document.querySelector('#container');
-    // Destrutturo gli oggetti per poter utilizzare le variabili nel ciclo forEach
-    let {id , content, media, author, likes, created} = posts;
     // Per ogni oggetto riempio il DOM con il template HTML
     posts.forEach((singlePost) => {
+        let postTemplate = singleTemplate (singlePost);
+        domPosts.innerHTML += postTemplate;
+    });
+    
+    
+    // FUNCTIONS
+    
+    // funzione per generare il singolo template
+    // createNewPost oggetto che passa le chiavi alla funzione
+    // return: singolo post template
+    function singleTemplate (createNewPost){
+        // Destrutturo gli oggetti per poter utilizzare le variabili nel DOM
+        let {id , content, media, author, likes, created} = createNewPost;
         let newPost =`
         <div class="post">
             <div class="post__header">
                 <div class="post-meta">                    
                     <div class="post-meta__icon">
-                        <img class="profile-pic" src="${singlePost.author.image}" alt="Phil Mangione">                    
+                        <img class="profile-pic" src="${author.image}" alt="Phil Mangione">                    
                     </div>
                     <div class="post-meta__data">
-                        <div class="post-meta__author">${singlePost.author.name}</div>
-                        <div class="post-meta__time">${singlePost.created}</div>
+                        <div class="post-meta__author">${author.name}</div>
+                        <div class="post-meta__time">${created}</div>
                     </div>                    
                 </div>
             </div>
-            <div class="post__text">${singlePost.content}</div>
+            <div class="post__text">${content}</div>
             <div class="post__image">
-                <img src="${singlePost.media}" alt="">
+                <img src="${media}" alt="">
             </div>
             <div class="post__footer">
                 <div class="likes js-likes">
@@ -96,11 +107,11 @@ const posts = [
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${singlePost.likes}</b> persone
+                        Piace a <b id="like-counter-1" class="js-likes-counter">${likes}</b> persone
                     </div>
                 </div> 
             </div>            
         </div>
         `;
-        domPosts.innerHTML += newPost;
-    });
+        return newPost;
+    }
