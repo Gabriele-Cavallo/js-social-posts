@@ -57,8 +57,6 @@ const posts = [
 ];
 // BONUS
 
-// 1. Formattare le date in formato italiano (gg/mm/aaaa)
-
 // 2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF).
 
 // 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
@@ -97,6 +95,13 @@ posts.forEach((singlePost) => {
 function singleTemplate (createNewPost){
     // Destrutturo gli oggetti per poter utilizzare le variabili nel DOM
     let {id , content, media, author, likes, created} = createNewPost;
+    // 1. Formattare le date in formato italiano (gg/mm/aaaa)
+    let italianDate;
+    // divido gli elementi della chiave created
+    let splitDate = created.split('-');
+    // riordino gli elementi per creare la sintassi di data italiana e utilizzo quella variabile per popolare dinamicamente il DOM
+    italianDate = splitDate[2] + '/' + splitDate[1] + '/' + splitDate[0];
+    // creo il template del DOM da creare ad ogni ciclo
     let newPost =`
     <div class="post">
         <div class="post__header">
@@ -106,7 +111,7 @@ function singleTemplate (createNewPost){
                 </div>
                 <div class="post-meta__data">
                     <div class="post-meta__author">${author.name}</div>
-                    <div class="post-meta__time">${created}</div>
+                    <div class="post-meta__time">${italianDate}</div>
                 </div>                    
             </div>
         </div>
