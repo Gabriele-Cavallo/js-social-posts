@@ -60,18 +60,26 @@ const posts = [
 
 // Milestone 1 - Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i post del nostro feed.
 
+
+// Stampo in pagina tutti i post presenti nell'array di oggetti
+// Creo l'elemento del DOM che andrò a popolare
+const domPosts = document.querySelector('#container');
+// Per ogni oggetto riempio il DOM con il template HTML
+posts.forEach((singlePost) => {
+    let postTemplate = singleTemplate (singlePost);
+    domPosts.innerHTML += postTemplate;
+});
+
 // Milestone 2 - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
 // Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
 
-// Stampo in pagina tutti i post presenti nell'array di oggetti
-    // Creo l'elemento del DOM che andrò a popolare
-    const domPosts = document.querySelector('#container');
-    // Per ogni oggetto riempio il DOM con il template HTML
-    posts.forEach((singlePost) => {
-        let postTemplate = singleTemplate (singlePost);
-        domPosts.innerHTML += postTemplate;
-    });
-    
+    // Creo tutti gli elementi del DOM a cui associare l'evento click
+    const likeButton = document.querySelectorAll('.like-button');
+        // metto in ascolto l'elemento del DOM con un ciclo forEach
+        likeButton.forEach((button) => {
+            button.addEventListener('click', function(){
+            })
+        });
     
     // FUNCTIONS
     
