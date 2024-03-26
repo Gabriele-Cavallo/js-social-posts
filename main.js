@@ -151,7 +151,7 @@ function picImage (image, splitName){
     let firstLastNameLetter = lastName[0];
     let authorImage;
     if(image){
-        authorImage = `<img class="profile-pic" src="${image}" alt="Phil Mangione">`; 
+        authorImage = `<img class="profile-pic" src="${image}" alt="${splitName}">`; 
     }else{
         // popolo dinamicamente lo span con le variabili ricavate prima
         authorImage = `
@@ -170,7 +170,9 @@ function picImage (image, splitName){
 function counterLikeButton (like, dislike){
     // metto in ascolto l'elemento del DOM con un ciclo forEach
     like.forEach((button) => {
-        button.addEventListener('click', function(){
+        button.addEventListener('click', function(event){
+            // blocco i comportamenti di default del browser
+            event.preventDefault();
             if (dislike === false){
                     // aggiungo la classe css che modifica il colore del testo del botton
                     button.classList.add('like-button--liked');
