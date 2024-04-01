@@ -71,7 +71,8 @@ posts.forEach((singlePost) => {
 
 // Milestone 2 - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
 // Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
-
+let likedPost = [];
+console.log('likedpost' , likedPost);
     // Creo tutti gli elementi del DOM a cui associare l'evento click
     // const likeButton = document.querySelectorAll('.like-button');
     // likeButton.forEach((button) => {
@@ -84,7 +85,7 @@ posts.forEach((singlePost) => {
     const likeButton = document.querySelectorAll('.js-like-button');
     const likeCounter = document.querySelectorAll('.js-likes-counter');
     let notLike = false;
-    counterLikeButton(likeButton, notLike, likeCounter);
+    counterLikeButton(likeButton, notLike, likeCounter, likedPost);
     
 // FUNCTIONS
 
@@ -168,19 +169,19 @@ function picImage (image, splitName){
 // funzione per cambiare colore del bottone e counter like al click
 // like---> tutti gli elementi da ciclare a cui associare l'eventListener
 // dislike---> valore iniziale della variabile che comanda il cambio colore
-function counterLikeButton (like, dislike, counterLike){
+function counterLikeButton (like, dislike, counterLike, likeArray){
     // metto in ascolto l'elemento del DOM con un ciclo forEach
     like.forEach((button, index) => {
         button.addEventListener('click', function(event){
             // blocco i comportamenti di default del browser
             event.preventDefault();
             let counter = counterLike[index];
-            console.log('counter' , counter);
             let counterNumber = parseInt(counter.innerHTML);
             if (dislike === false){
                 // aggiungo la classe css che modifica il colore del testo del botton
                 button.classList.add('like-button--liked');
                 counter.innerHTML = counterNumber + 1;
+                likeArray.push(index)
                 dislike = true;
                 }else if(dislike === true){
                     button.classList.remove('like-button--liked');
