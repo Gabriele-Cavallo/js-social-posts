@@ -71,19 +71,13 @@ posts.forEach((singlePost) => {
 
 // Milestone 2 - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
 // Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
-let likedPost = [];
-console.log('likedpost' , likedPost);
+    // Creo l'array che andrà a contenere gli id dei post ai quali viene messo il like
+    let likedPost = [];
     // Creo tutti gli elementi del DOM a cui associare l'evento click
-    // const likeButton = document.querySelectorAll('.like-button');
-    // likeButton.forEach((button) => {
-    //         // metto in ascolto l'elemento del DOM con un ciclo forEach
-    //         button.addEventListener('click', function(){
-    //             // aggiungo la classe css che modifica il colore del testo del botton
-    //             button.classList.add('like-button--liked');
-    //         })
-    //     });
     const likeButton = document.querySelectorAll('.js-like-button');
+    // Creo tutti gli elementi del DOM che faranno da counter per il numero di like
     const likeCounter = document.querySelectorAll('.js-likes-counter');
+    // Richiamo la funzione che regola i like button e i like counter
     counterLikeButton(likeButton, likeCounter, likedPost);
     
 // FUNCTIONS
@@ -94,13 +88,13 @@ console.log('likedpost' , likedPost);
 function singleTemplate (createNewPost){
     // Destrutturo gli oggetti per poter utilizzare le variabili nel DOM
     let {id , content, media, author, likes, created} = createNewPost;
-    // 1. Formattare le date in formato italiano (gg/mm/aaaa)
+    // Formattare le date in formato italiano (gg/mm/aaaa)
     let italianDate;
     // divido gli elementi della chiave created
     let splitDate = created.split('-');
     // riordino gli elementi per creare la sintassi di data italiana e utilizzo quella variabile per popolare dinamicamente il DOM
     italianDate = splitDate[2] + '/' + splitDate[1] + '/' + splitDate[0];
-    // 2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF).
+    // Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF).
     // creo il template del DOM da creare ad ogni ciclo
     let newPost =`
     <div class="post">
@@ -164,25 +158,32 @@ function picImage (image, splitName){
     return authorImage;
 };
 
-// 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
+// Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
 // funzione per cambiare colore del bottone e counter like al click
 // like---> tutti gli elementi da ciclare a cui associare l'eventListener
-// dislike---> valore iniziale della variabile che comanda il cambio colore
+// counterLike---> elementi del DOM che conterranno il counter che deve aggiornarsi al click sul bottone "Mi piace"
+// likeArray---> array che conterrà gli indici dei like a cui è stato messo "Mi piace"
 function counterLikeButton (like, counterLike, likeArray){
     // metto in ascolto l'elemento del DOM con un ciclo forEach
     like.forEach((button, index) => {
         button.addEventListener('click', function(event){
             // blocco i comportamenti di default del browser
             event.preventDefault();
+            // creo l'elemento del DOM counter da aggiornare al click
             let counter = counterLike[index];
+            // valore numerico dei like messi al post
             let counterNumber = parseInt(counter.innerHTML);
             if (!this.classList.contains('like-button--liked')){
                 // aggiungo la classe css che modifica il colore del testo del botton
                 button.classList.add('like-button--liked');
+                // incremento il valore del numero di counter di 1
                 counter.innerHTML = counterNumber + 1;
+                // pusho l'id del posto nell'array dei post a cui è stato messo il like
                 likeArray.push(index)
                 }else {
+                    // rimuovo la classe css quando viene tolto il like
                     button.classList.remove('like-button--liked');
+                    // riduco di 1 il numero del counter dei like al post
                     counter.innerHTML = counterNumber - 1;
                 }
             });
