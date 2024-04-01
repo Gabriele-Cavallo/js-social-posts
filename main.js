@@ -84,8 +84,7 @@ console.log('likedpost' , likedPost);
     //     });
     const likeButton = document.querySelectorAll('.js-like-button');
     const likeCounter = document.querySelectorAll('.js-likes-counter');
-    let notLike = false;
-    counterLikeButton(likeButton, notLike, likeCounter, likedPost);
+    counterLikeButton(likeButton, likeCounter, likedPost);
     
 // FUNCTIONS
 
@@ -169,7 +168,7 @@ function picImage (image, splitName){
 // funzione per cambiare colore del bottone e counter like al click
 // like---> tutti gli elementi da ciclare a cui associare l'eventListener
 // dislike---> valore iniziale della variabile che comanda il cambio colore
-function counterLikeButton (like, dislike, counterLike, likeArray){
+function counterLikeButton (like, counterLike, likeArray){
     // metto in ascolto l'elemento del DOM con un ciclo forEach
     like.forEach((button, index) => {
         button.addEventListener('click', function(event){
@@ -177,15 +176,13 @@ function counterLikeButton (like, dislike, counterLike, likeArray){
             event.preventDefault();
             let counter = counterLike[index];
             let counterNumber = parseInt(counter.innerHTML);
-            if (dislike === false){
+            if (!this.classList.contains('like-button--liked')){
                 // aggiungo la classe css che modifica il colore del testo del botton
                 button.classList.add('like-button--liked');
                 counter.innerHTML = counterNumber + 1;
                 likeArray.push(index)
-                dislike = true;
-                }else if(dislike === true){
+                }else {
                     button.classList.remove('like-button--liked');
-                    dislike = false;
                     counter.innerHTML = counterNumber - 1;
                 }
             });
